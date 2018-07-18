@@ -65,7 +65,7 @@ def load_candidate_encodings(candidate_film, DATA_DIR=os.getcwd()):
     try:
         orig_frames = dill.load(open(file_name, 'rb'))
     except Exception:
-        orig_frames = dill.load(open(os.path.join(DATA_DIR, file_name, '_AllFrames.dill'), 'rb'))
+        orig_frames = dill.load(open(os.path.join(DATA_DIR, file_name), 'rb'))
     return orig_frames
     
 def build_LSH_Forest(orig_frames):
