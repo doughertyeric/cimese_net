@@ -9,7 +9,7 @@ setup(name='cimese_net',
       author_email='dougherty.eric@gmail.com',
       packages=['cimese_net'],
       package_dir={'cimese_net': 'cimese_net'},
-      package_data={'cimese_net': ['models/*.h5']}
+      package_data={'cimese_net': ['models/*.h5']},
       install_requires=[
 	  'keras',
 	  'numpy',
