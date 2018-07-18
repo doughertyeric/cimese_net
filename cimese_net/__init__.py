@@ -1,5 +1,9 @@
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
+import pkg_resources
+
+MODEL_PATH = pkg_resources.resource_filename('cimese_net', 'models/')
+MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'vgg16-cat-final.h5')
 
 # Libraries for load_vgg16
 import keras
@@ -81,8 +85,8 @@ def clip_alignment(lshf, rec_frames):
     frame_freq = Counter(first_frame)
     return frame_freq.most_common()[0][0]
     
-def load_top_model(DATA_DIR):
-    model_file = os.path.join(DATA_DIR, "models", "vgg16-cat-final.h5")
+def load_top_model(model_file):
+    #model_file = os.path.join(DATA_DIR, "models", "vgg16-cat-final.h5")
     model = load_model(model_file)
     return model
     
@@ -114,7 +118,7 @@ def infringement_probability(clip, candidate_film, DATA_DIR):
     # Classification Model Processes
     print('Subsetting candidate film ...')
     subset = subset_candidate_film(init_frame, orig_frames, rec_frames)
-    top_model = load_top_model(DATA_DIR)
+    top_model = load_top_model(MODEL_FILE)
     print('Conducting Classification via CNN ...')
     prob = []
     for i in range(len(subset)-1):
