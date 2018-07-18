@@ -1,0 +1,9 @@
+warnings
+keras
+numpy
+cv2
+dlib
+pickle
+sklearn==0.19
+collections
+os

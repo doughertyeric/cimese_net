@@ -9,14 +9,11 @@ setup(name='cimese_net',
       author_email='dougherty.eric@gmail.com',
       packages=['cimese_net'],
       install_requires=[
-          'warnings',
 	  'keras',
 	  'numpy',
 	  'cv2',
 	  'dlib',
 	  'pickle',
-	  'sklearn==0.19',
-	  'collections',
-	  'os'
+	  'sklearn==0.19'
       ],
       zip_safe=False)
