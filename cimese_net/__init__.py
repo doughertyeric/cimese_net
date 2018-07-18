@@ -3,7 +3,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 import pkg_resources
 
 MODEL_PATH = pkg_resources.resource_filename('cimese_net', 'models/')
-MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'vgg16-cat-final.h5')
+MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'models/vgg16-cat-final.h5')
 
 # Libraries for load_vgg16
 import keras
