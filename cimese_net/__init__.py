@@ -55,10 +55,13 @@ def extract_clip_encodings(clip, vgg16_model):
             video.release()
     return rec_frames
     
-def load_candidate_encodings(candidate_film):
+def load_candidate_encodings(candidate_film, DATA_DIR=os.getcwd()):
     candidate_film = candidate_film.replace(' ', '')
     file_name = str(candidate_film + '_AllFrames.dill')
-    orig_frames = dill.load(open(file_name, 'rb'))
+    try:
+        orig_frames = dill.load(open(file_name, 'rb'))
+    except Exception:
+        orig_frames = dill.load(open(os.path.join(DATA_DIR, film_name, '_AllFrames.dill'), 'rb'))
     return orig_frames
     
 def build_LSH_Forest(orig_frames):
