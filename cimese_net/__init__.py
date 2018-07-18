@@ -8,7 +8,6 @@ from keras import applications
 import numpy as np
 # Libraries for extract_clip_encodings
 import cv2
-import dlib
 # Libraries for load_candidate_encodings
 import pickle as dill
 # Libraries for build_LSH_Forest
