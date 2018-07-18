@@ -109,7 +109,7 @@ def infringement_probability(clip, candidate_film, DATA_DIR):
     print('Extracting frames from video clip ...')
     rec_frames = extract_clip_encodings(clip, vgg16_model)
     print("Extracted {n_frames} frames from {clip_file}".format(n_frames = len(rec_frames), clip_file=clip))
-    orig_frames = load_candidate_encodings(candidate_film)
+    orig_frames = load_candidate_encodings(candidate_film, DATA_DIR)
     print('Building LSH Forest ...')
     lshf = build_LSH_Forest(orig_frames)
     print('Aligning clip with candidate film ...')
