@@ -217,7 +217,7 @@ def infringement_probability(clip, candidate_film, test, DATA_DIR=os.getcwd()):
     elif test == 'NEG':
         TEST_FULL = pkg_resources.resource_filename('cimese_net', 'data/Test_AllFrames.data')
         orig_frames = dill.load(gzip.open(TEST_FULL))
-        TEST_NEG = pkg_resources.resource_filename('cimese_net', 'data/Test_Pos_RecFrames.data')
+        TEST_NEG = pkg_resources.resource_filename('cimese_net', 'data/Test_Neg_RecFrames.data')
         rec_frames = dill.load(gzip.open(TEST_NEG))
     else:
         print('Extracting frames from video clip ...')
