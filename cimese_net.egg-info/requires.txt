@@ -1,9 +1,6 @@
-warnings
 keras
 numpy
-cv2
-dlib
-pickle
-sklearn==0.19
-collections
-os
+opencv-python
+pickle-mixin
+scikit-learn<0.20
+tensorflow
