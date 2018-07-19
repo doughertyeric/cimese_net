@@ -4,7 +4,6 @@ import pkg_resources
 import gzip
 
 MODEL_PATH = pkg_resources.resource_filename('cimese_net', 'models/')
-MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'models/vgg16-cat-final.h5')
 DATA_PATH = pkg_resources.resource_filename('cimese_net', 'data/')
 
 # Libraries for load_vgg16
@@ -22,6 +21,7 @@ from sklearn.neighbors import LSHForest
 from collections import Counter
 # Libraries for load_top_model
 import os
+from keras.models import model_from_json
 from keras.models import load_model
 
 def load_vgg16():
@@ -40,6 +40,23 @@ def load_vgg16():
     model_vgg16_conv.outputs = [model_vgg16_conv.layers[-1].output]
     model_vgg16_conv.layers[-1].outbound_nodes = []
     return model_vgg16_conv
+
+def load_top_model():
+        '''
+    Inputs: None; automatically loads model architechture and weights of the trained
+    classification layers 
+    Outputs: Loaded model file
+    Purpose: The siamese structure relies upon the pre-trained top layers that are
+    imported here. These effectively serve to classify a set of images as a match or 
+    not a match based on the feature vectors of each.
+    '''
+    MODEL_ARCH = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_architechture.json')
+    with open(MODEL_ARCH, 'r') as f:
+        model = model_from_json(f.read())
+
+    MODEL_WEIGHTS = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_weights.h5')
+    model.load_weights(MODEL_WEIGHTS)
+    return model
     
 def extract_features(image, vgg16_model):
     '''
@@ -140,18 +157,10 @@ def clip_alignment(lshf, rec_frames):
     frame_freq = Counter(first_frame)
     return frame_freq.most_common()[0][0]
     
-def load_top_model(model_file=MODEL_FILE):
-    '''
-    Inputs: Model file of the trained classification layers (automatically referenced 
-    from the file structure of the package)
-    Outputs: Loaded model file
-    Purpose: The siamese structure relies upon the pre-trained top layers that are
-    imported here. These effectively serve to classify a set of images as a match or 
-    not a match based on the feature vectors of each.
-    '''
+#def load_top_model(model_file=MODEL_FILE):
     #model_file = os.path.join(DATA_DIR, "models", "vgg16-cat-final.h5")
-    model = load_model(model_file)
-    return model
+    #model = load_model(model_file)
+    #return model
     
 def subset_candidate_film(init_frame, orig_frames, rec_frames):
     '''
@@ -210,13 +219,17 @@ def infringement_probability(clip, candidate_film, test, DATA_DIR=os.getcwd()):
     vgg16_model = load_vgg16()
 
     if test == 'POS':
+        print('Loading encodings from abridged Test film ...')
         TEST_FULL = pkg_resources.resource_filename('cimese_net', 'data/Test_AllFrames.data')
         orig_frames = dill.load(gzip.open(TEST_FULL))
+        print('Loading encodings from positive match clip ...')
         TEST_POS = pkg_resources.resource_filename('cimese_net', 'data/Test_Pos_RecFrames.data')
         rec_frames = dill.load(gzip.open(TEST_POS))
     elif test == 'NEG':
+        print('Loading encodings from abridged Test film ...')
         TEST_FULL = pkg_resources.resource_filename('cimese_net', 'data/Test_AllFrames.data')
         orig_frames = dill.load(gzip.open(TEST_FULL))
+        print('Loading encodings from negative match clip ...')
         TEST_NEG = pkg_resources.resource_filename('cimese_net', 'data/Test_Neg_RecFrames.data')
         rec_frames = dill.load(gzip.open(TEST_NEG))
     else:
