@@ -189,7 +189,7 @@ def prob_determination(prob):
     thresh = [1 if x > 0.5 else 0 for x in prob]
     return sum(thresh)/float(len(thresh))
     
-def infringement_probability(clip, candidate_film, DATA_DIR=os.getcwd(), test=NULL):
+def infringement_probability(clip, candidate_film, test, DATA_DIR=os.getcwd()):
     '''
     Inputs: The file name of the potentially infinging clip, the pickled file containing
     the encoding of the full film whose copyright is potentially being violated, and the
