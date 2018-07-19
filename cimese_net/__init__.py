@@ -42,7 +42,7 @@ def load_vgg16():
     return model_vgg16_conv
 
 def load_top_model():
-        '''
+    '''
     Inputs: None; automatically loads model architechture and weights of the trained
     classification layers 
     Outputs: Loaded model file
@@ -51,10 +51,10 @@ def load_top_model():
     not a match based on the feature vectors of each.
     '''
     MODEL_ARCH = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_architechture.json')
+    MODEL_WEIGHTS = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_weights.h5')
+    
     with open(MODEL_ARCH, 'r') as f:
         model = model_from_json(f.read())
-
-    MODEL_WEIGHTS = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_weights.h5')
     model.load_weights(MODEL_WEIGHTS)
     return model
     

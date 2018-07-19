@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: cimese-net
-Version: 0.22
+Version: 0.27
 Summary: Basic implementation of a Siamese network structure for detecting copyright infringement
 Home-page: http://github.com/doughertyeric/cimese_net
 Author: Eric Dougherty

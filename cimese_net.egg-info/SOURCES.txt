@@ -7,4 +7,7 @@ cimese_net.egg-info/dependency_links.txt
 cimese_net.egg-info/not-zip-safe
 cimese_net.egg-info/requires.txt
 cimese_net.egg-info/top_level.txt
+cimese_net/data/Test_AllFrames.data
+cimese_net/data/Test_Neg_RecFrames.data
+cimese_net/data/Test_Pos_RecFrames.data
 cimese_net/models/vgg16-cat-final.h5
