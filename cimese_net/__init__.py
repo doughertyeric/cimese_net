@@ -92,6 +92,7 @@ def extract_clip_encodings(clip, vgg16_model):
         if video.get(1) % (fps) == 0:
             small_frame = cv2.resize(frame, (224, 224))
             small_frame = extract_features(small_frame, vgg16_model)[0]
+            small_frame = (small_frame - small_frame.mean()) / small_frame.std()
             rec_frames.append(small_frame)
             count += (fps)
         if count > video_length - (2*fps):
@@ -153,11 +154,6 @@ def clip_alignment(lshf, rec_frames):
     first_frame = [row[0] for row in top_10]
     frame_freq = Counter(first_frame)
     return frame_freq.most_common()[0][0]
-    
-#def load_top_model(model_file=MODEL_FILE):
-    #model_file = os.path.join(DATA_DIR, "models", "vgg16-cat-final.h5")
-    #model = load_model(model_file)
-    #return model
     
 def subset_candidate_film(init_frame, orig_frames, rec_frames):
     '''
