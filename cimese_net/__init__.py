@@ -1,5 +1,3 @@
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
 import pkg_resources
 import gzip
 
@@ -51,6 +49,7 @@ def load_top_model():
     '''
     MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'data/cimese_net_best_model.h5')
     model = load_model(MODEL_FILE)
+    print('Model {file_name} successfully loaded'.format(file_name = 'cimese_net_best_model.h5'))
     return model
     
 def extract_features(image, vgg16_model):
@@ -190,7 +189,7 @@ def prob_determination(prob):
     thresh = [1 if x > 0.5 else 0 for x in prob]
     return sum(thresh)/float(len(thresh))
     
-def infringement_probability(clip, candidate_film, test, DATA_DIR=os.getcwd()):
+def infringement_probability(clip='None', candidate_film='None', test='None', DATA_DIR=os.getcwd()):
     '''
     Inputs: The file name of the potentially infinging clip, the pickled file containing
     the encoding of the full film whose copyright is potentially being violated, and the
