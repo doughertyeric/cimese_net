@@ -218,6 +218,7 @@ def infringement_probability(clip, candidate_film, test, DATA_DIR=os.getcwd()):
         print('Loading encodings from positive match clip ...')
         TEST_POS = pkg_resources.resource_filename('cimese_net', 'data/Test_Pos_RecFrames.data')
         rec_frames = dill.load(gzip.open(TEST_POS))
+        
     elif test == 'NEG':
         print('Loading encodings from abridged Test film ...')
         TEST_FULL = pkg_resources.resource_filename('cimese_net', 'data/Test_AllFrames.data')
@@ -225,6 +226,7 @@ def infringement_probability(clip, candidate_film, test, DATA_DIR=os.getcwd()):
         print('Loading encodings from negative match clip ...')
         TEST_NEG = pkg_resources.resource_filename('cimese_net', 'data/Test_Neg_RecFrames.data')
         rec_frames = dill.load(gzip.open(TEST_NEG))
+        
     else:
         print('Extracting frames from video clip ...')
         rec_frames = extract_clip_encodings(clip, vgg16_model)
