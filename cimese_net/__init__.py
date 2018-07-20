@@ -50,12 +50,8 @@ def load_top_model():
     imported here. These effectively serve to classify a set of images as a match or 
     not a match based on the feature vectors of each.
     '''
-    MODEL_ARCH = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_architechture.json')
-    MODEL_WEIGHTS = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_weights.h5')
-    
-    with open(MODEL_ARCH, 'r') as f:
-        model = model_from_json(f.read())
-    model.load_weights(MODEL_WEIGHTS)
+    MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_model.h5')
+    model = load_model(MODEL_FILE)
     return model
     
 def extract_features(image, vgg16_model):
@@ -140,8 +136,9 @@ def clip_alignment(lshf, rec_frames):
     infringing video clip.
     Outputs: Single value indicated the most likely frame index of the full movie
     correspoding to the first frame of the potentially infringing video clip.
-    Purpose: The neural net is most effective when the frames being analyzed are relatively closely aligned. Though it is somewhat robust to offsets of about 1 second, the
-    optimal performance occurs at the perfect alignment (i.e., perfectly corresponding
+    Purpose: The neural net is most effective when the frames being analyzed are
+    relatively closely aligned. Though it is somewhat robust to offsets of about 1 second,
+    the optimal performance occurs at the perfect alignment (i.e., perfectly corresponding
     frames) between the full movie and the potentially infringing clip. This function
     serves to align the two as closely as possible based on the similarity in the feature
     vectors of 10 frames at the start of the video clip.
@@ -246,7 +243,7 @@ def infringement_probability(clip, candidate_film, test, DATA_DIR=os.getcwd()):
     # Classification Model Processes
     print('Subsetting candidate film ...')
     subset = subset_candidate_film(init_frame, orig_frames, rec_frames)
-    top_model = load_top_model(MODEL_FILE)
+    top_model = load_top_model()
     print('Conducting Classification via CNN ...')
     prob = []
     for i in range(len(subset)-1):
