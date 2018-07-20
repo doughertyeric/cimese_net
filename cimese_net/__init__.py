@@ -3,7 +3,6 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 import pkg_resources
 import gzip
 
-MODEL_PATH = pkg_resources.resource_filename('cimese_net', 'models/')
 DATA_PATH = pkg_resources.resource_filename('cimese_net', 'data/')
 
 # Libraries for load_vgg16
@@ -50,7 +49,7 @@ def load_top_model():
     imported here. These effectively serve to classify a set of images as a match or 
     not a match based on the feature vectors of each.
     '''
-    MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'models/cimese_net_best_model.h5')
+    MODEL_FILE = pkg_resources.resource_filename('cimese_net', 'data/cimese_net_best_model.h5')
     model = load_model(MODEL_FILE)
     return model
     

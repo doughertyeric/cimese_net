@@ -1,0 +1,6 @@
+keras
+numpy
+opencv-python
+pickle-mixin
+scikit-learn<0.20
+tensorflow
