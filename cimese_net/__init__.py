@@ -112,7 +112,7 @@ def match_selection(clip_medians, film_dict, length):
     sim_scores = []
     for entry in film_dict.keys():
         film_median = film_dict[entry]
-        score = similarity_score(film_median, findingdory_clip_medians, length)
+        score = similarity_score(film_median, clip_medians, length)
         sim_scores.append(score)
     return film_names[np.argmin(np.array(sim_scores))]
 
